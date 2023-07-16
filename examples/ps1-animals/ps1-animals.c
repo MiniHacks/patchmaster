@@ -48,11 +48,11 @@ void new_herbivore(long x) {
     struct herbivore *hp = malloc(sizeof(struct herbivore));
     printf("Allocating herbivore at %p\n", hp);
     if (!hp)
-	exit(1);
+        exit(1);
     if (x & 1)
-	hp->func = odd_toes;
+        hp->func = odd_toes;
     else
-	hp->func = even_toes;
+        hp->func = even_toes;
     hp->next = herbivore_list;
     herbivore_list = hp;
     animals_by_num[loc] = hp;
@@ -63,7 +63,7 @@ void new_carnivore(long x) {
     struct carnivore *cp = malloc(sizeof(struct carnivore));
     printf("Allocating carnivore at %p\n", cp);
     if (!cp)
-	exit(1);
+        exit(1);
     cp->num_teeth = x;
     cp->next = carnivore_list;
     carnivore_list = cp;
@@ -74,8 +74,8 @@ void release_animal(long x) {
     int loc = x & (NUM_ANIMALS - 1);
     printf("Releasing animal #%d at %p\n", loc, animals_by_num[loc]);
     if (!animals_by_num[loc]) {
-	fprintf(stderr, "Attempt to release non-existant animal\n");
-	exit(1);
+        fprintf(stderr, "Attempt to release non-existant animal\n");
+        exit(1);
     }
     free(animals_by_num[loc]);
     animals_by_num[loc] = 0;
@@ -85,13 +85,13 @@ void list_animals(void) {
     struct herbivore *hp;
     struct carnivore *cp;
     for (hp = herbivore_list; hp; hp = hp->next) {
-	printf("A herbivore ");
-	(hp->func)();
-	printf("\n");
+        printf("A herbivore ");
+        (hp->func)();
+        printf("\n");
     }
 
     for (cp = carnivore_list; cp; cp = cp->next) {
-	printf("A carnivore with %ld teeth\n", cp->num_teeth);
+        printf("A carnivore with %ld teeth\n", cp->num_teeth);
     }
 }
 
@@ -102,37 +102,37 @@ void syntax_error(void) {
 
 int main(int argc, char **argv) {
     for (;;) {
-	int c = getchar();
-	long x;
-	while (isspace(c))
-	    c = getchar();
-	if (c == EOF)
-	    return 0;
-	switch (c) {
-	case 'h':
-	    if (scanf(" %li", &x) != 1)
-		syntax_error();
-	    new_herbivore(x);
-	    break;
-	case 'c':
-	    if (scanf(" %li", &x) != 1)
-		syntax_error();
-	    new_carnivore(x);
-	    break;
-	case 'r':
-	    if (scanf(" %li", &x) != 1)
-		syntax_error();
-	    release_animal(x);
-	    break;
-	case 'l':
-	    list_animals();
-	    break;
-	case 'q':
-	    return 0;
-	    break;
-	default:
-	    fprintf(stderr, "Unrecognized command %c\n", c);
-	    exit(1);
-	}
+        int c = getchar();
+        long x;
+        while (isspace(c))
+            c = getchar();
+        if (c == EOF)
+            return 0;
+        switch (c) {
+        case 'h':
+            if (scanf(" %li", &x) != 1)
+                syntax_error();
+            new_herbivore(x);
+            break;
+        case 'c':
+            if (scanf(" %li", &x) != 1)
+                syntax_error();
+            new_carnivore(x);
+            break;
+        case 'r':
+            if (scanf(" %li", &x) != 1)
+                syntax_error();
+            release_animal(x);
+            break;
+        case 'l':
+            list_animals();
+            break;
+        case 'q':
+            return 0;
+            break;
+        default:
+            fprintf(stderr, "Unrecognized command %c\n", c);
+            exit(1);
+        }
     }
 }

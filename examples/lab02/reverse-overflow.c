@@ -8,14 +8,14 @@ void revcpy(char *dest_end, char *src) {
     char *p = src;
     char *q = dest_end;
     while (*p) {
-	*q-- = *p++;
+        *q-- = *p++;
     }
     *q = 0;
 
     void *new_ret = __builtin_return_address(0);
     if (new_ret != orig_ret) {
-	fprintf(stderr, "revcpy return address corrupted to %p\n", new_ret);
-	exit(42);
+        fprintf(stderr, "revcpy return address corrupted to %p\n", new_ret);
+        exit(42);
     }
 }
 
@@ -28,16 +28,16 @@ void func(char *attacker_controlled) {
 
     void *new_ret = __builtin_return_address(0);
     if (new_ret != orig_ret) {
-	fprintf(stderr, "func return address corrupted to %p\n", new_ret);
-	exit(42);
+        fprintf(stderr, "func return address corrupted to %p\n", new_ret);
+        exit(42);
     }
 }
 
 int main(int argc, char **argv) {
     if (argc == 2) {
-	func(argv[1]);
+        func(argv[1]);
     } else {
-	func("short");
+        func("short");
     }
     return 0;
 }

@@ -138,7 +138,7 @@ static void on_open_image(GtkButton* button, gpointer user_data) {
     gtk_file_filter_set_name(filter, "Badly-coded format images");
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER (dialog),
                                 filter);
-	
+        
     switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
     case GTK_RESPONSE_ACCEPT:
         {
@@ -188,7 +188,7 @@ static GtkWidget* create_window(void) {
 
     /* Show open dialog when opening a file */
     g_signal_connect(open_button, "clicked", G_CALLBACK(on_open_image), image);
-	
+        
     /* Exit when the window is closed */
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
